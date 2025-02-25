@@ -1,24 +1,26 @@
 package scraper
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 type Post struct {
-	PostHrefLink string
-	PostImgSrc   string
-	PostCategory string
-	PostTitle    string
+	postHrefLink string
+	postImgSrc   string
+	postCategory string
+	postTitle    string
+	font string
+	fontImgSrc string
+	section string
 }
 
 func Scraper() {
-	postsList := make([]Post, 60, 60)
-	Urlo(postsList)
-	fmt.Println(postsList)
-
-	/*
-	index := 0
+	postsList := make([]Post, 0, 100)
+	postsList = append(postsList, Urlo()...)
 
 	for {
-		index += 1
-		Urlo(postsList)
-	} */
+		fmt.Println(postsList)
+		time.Sleep(3 * time.Minute)
+	} 
 }
