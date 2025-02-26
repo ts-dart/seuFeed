@@ -16,8 +16,8 @@ func urlo() ([]Post) {
 	c.OnHTML("#block11073171 .has--thumb", func(e *colly.HTMLElement) {
 		post := Post{
 			postHrefLink: e.ChildAttr("figure a", "href"),
-			postImgSrc:   e.ChildAttr("figure a img", "src"),
-			postCategory: e.ChildText("figcaption a h3"),
+			postImgSrc: e.ChildAttr("figure a img", "src"),
+			postText: e.ChildText("figcaption a h3"),
 			font: font,
 			fontImgSrc: fontImg,
 			section: "main",

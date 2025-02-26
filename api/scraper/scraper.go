@@ -8,7 +8,7 @@ import (
 type Post struct {
 	postHrefLink string
 	postImgSrc   string
-	postCategory string
+	postText string
 	font string
 	fontImgSrc string
 	section string
@@ -17,7 +17,7 @@ type Post struct {
 func Scraper() {
 	postsList := make([]Post, 0, 100)
 	postsList = append(postsList, urlo()...)
-	urlt()
+	postsList = append(postsList, urlt()...)
 
 	for {
 		fmt.Println(postsList)
