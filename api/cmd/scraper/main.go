@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/ts-dart/seuFeed/api/scraper"
+	"github.com/ts-dart/seuFeed/api/internal/scraper"
 )
 
 func main() {
