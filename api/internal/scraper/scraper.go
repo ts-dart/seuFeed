@@ -6,21 +6,23 @@ import (
 )
 
 type Post struct {
-	postHrefLink string
-	postImgSrc   string
-	postText string
-	font string
-	fontImgSrc string
-	section string
+	PostHrefLink string
+	PostImgSrc   string
+	PostText string
+	Font string
+	FontImgSrc string
+	Section string
 }
 
+var PostsList []Post
+
 func Scraper() {
-	postsList := make([]Post, 0, 100)
-	postsList = append(postsList, urlo()...)
-	postsList = append(postsList, urlt()...)
+	PostsList = make([]Post, 0, 100)
+	PostsList = append(PostsList, urlo()...)
+	PostsList = append(PostsList, urlt()...)
 
 	for {
-		fmt.Println(postsList)
+		fmt.Println(PostsList)
 		time.Sleep(3 * time.Minute)
 	} 
 }

@@ -15,12 +15,12 @@ func urlt() ([]Post) {
 
 	c.OnHTML("div._evt div.bastian-page div._evg div._evt", func(e *colly.HTMLElement) {
 		post := Post{
-			postHrefLink: e.ChildAttr("div div", "data-mrf-link"),
-			postImgSrc: e.ChildAttr("div.feed-media-wrapper picture img", "src"),
-			postText: e.ChildText("div.feed-post-body div.feed-post-body-title h2 a p"),
-			font: font,
-			fontImgSrc: fontImg,
-			section: "main",
+			PostHrefLink: e.ChildAttr("div div", "data-mrf-link"),
+			PostImgSrc: e.ChildAttr("div.feed-media-wrapper picture img", "src"),
+			PostText: e.ChildText("div.feed-post-body div.feed-post-body-title h2 a p"),
+			Font: font,
+			FontImgSrc: fontImg,
+			Section: "main",
 		}
 		postsList = append(postsList, post)
 	})

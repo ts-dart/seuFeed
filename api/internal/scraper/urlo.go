@@ -15,12 +15,12 @@ func urlo() ([]Post) {
 	// Captura os elementos necessários
 	c.OnHTML("#block11073171 .has--thumb", func(e *colly.HTMLElement) {
 		post := Post{
-			postHrefLink: e.ChildAttr("figure a", "href"),
-			postImgSrc: e.ChildAttr("figure a img", "src"),
-			postText: e.ChildText("figcaption a h3"),
-			font: font,
-			fontImgSrc: fontImg,
-			section: "main",
+			PostHrefLink: e.ChildAttr("figure a", "href"),
+			PostImgSrc: e.ChildAttr("figure a img", "src"),
+			PostText: e.ChildText("figcaption a h3"),
+			Font: font,
+			FontImgSrc: fontImg,
+			Section: "main",
 		}
 		postsList = append(postsList, post)
 	})

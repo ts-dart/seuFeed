@@ -15,12 +15,12 @@ func urlth() ([]Post) {
 
 	c.OnHTML("div.col-xs-12 div.col-md-3 div.post", func(e *colly.HTMLElement) {
 		post := Post{
-			postHrefLink: e.ChildAttr("div.post a.post-img", "href"),
-			postImgSrc: e.ChildAttr("div.post a.post-img img", "src"),
-			postText: e.ChildText("div.post div.post-body h3.post-title a"),
-			font: font,
-			fontImgSrc: fontImg,
-			section: "",
+			PostHrefLink: e.ChildAttr("div.post a.post-img", "href"),
+			PostImgSrc: e.ChildAttr("div.post a.post-img img", "src"),
+			PostText: e.ChildText("div.post div.post-body h3.post-title a"),
+			Font: font,
+			FontImgSrc: fontImg,
+			Section: "",
 		}
 		postsList = append(postsList, post)
 	})
