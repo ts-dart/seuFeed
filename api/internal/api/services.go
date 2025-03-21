@@ -1,11 +1,11 @@
 package api
 
-func postsBySection(s string) ([]Post) {
+func postsBySection(ft string) ([]Post) {
 	r := respository()
 	var filteredPosts []Post
 
 	for _, p := range r {
-		if p.section == s {
+		if p.section == ft {
 			filteredPosts = append(filteredPosts, p)
 		}
 	}
