@@ -5,18 +5,48 @@ import (
 	"net/http"
 )
 
-func Handlers() {
-	http.HandleFunc("/postsBySection", postsBySectionHandler)
+func Start() {
+	http.HandleFunc("/", d)
+	http.HandleFunc("/getPostsBySection", getPostsBySectionHandler)
+	http.HandleFunc("/getAllPosts", getAllPostsHandler)
 }
 
-func postsBySectionHandler(w http.ResponseWriter, r *http.Request) {
+func d(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/plain")
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("Api responding"))
+}
+
+func getPostsBySectionHandler(w http.ResponseWriter, r *http.Request) {
 	// Definindo o cabeçalho da resposta como JSON
 	w.Header().Set("Content-Type", "application/json")
 
 	// Criando a resposta
 	ft := r.URL.Query().Get("ft")
-	response := postsBySection(ft)
+	response := getPostsBySection(ft)
+	jsonData, err := json.Marshal(response)
+
+	if err != nil {
+		http.Error(w, "Erro ao gerar JSON", http.StatusInternalServerError)
+		return
+	}
 
 	// Convertendo para JSON e enviando a resposta
-	json.NewEncoder(w).Encode(response)
+	w.WriteHeader(http.StatusOK)
+	w.Write(jsonData)
+}
+
+func getAllPostsHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	response := getAllPosts()
+
+	jsonData, err := json.Marshal(response)
+
+	if err != nil {
+		http.Error(w, "Erro ao gerar JSON", http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Write(jsonData)
 }

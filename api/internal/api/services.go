@@ -1,6 +1,10 @@
 package api
 
-func postsBySection(ft string) ([]Post) {
+import (
+	"fmt"
+)
+
+func getPostsBySection(ft string) ([]Post) {
 	r := respository()
 	var filteredPosts []Post
 
@@ -11,4 +15,10 @@ func postsBySection(ft string) ([]Post) {
 	}
 
 	return filteredPosts
+}
+
+func getAllPosts() ([]Post) {
+	r := respository()
+	fmt.Println()
+	return r
 }

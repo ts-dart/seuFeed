@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-  api.Handlers()
+  api.Start()
 
   http.ListenAndServe(":8080", nil)
 }

@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/ts-dart/seuFeed/api/internal/scraper"
+	"fmt"
 )
 
 type Post struct {
@@ -15,6 +16,7 @@ type Post struct {
 
 func respository() ([]Post) {
 	posts := scraper.PostsList
+	fmt.Println(posts)
 	var convertedPosts []Post
 
 	for _, p := range posts {
