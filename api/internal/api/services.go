@@ -9,7 +9,7 @@ func getPostsBySection(ft string) ([]Post) {
 	var filteredPosts []Post
 
 	for _, p := range r {
-		if p.section == ft {
+		if p.Section == ft {
 			filteredPosts = append(filteredPosts, p)
 		}
 	}

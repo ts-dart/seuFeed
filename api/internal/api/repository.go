@@ -1,34 +1,44 @@
 package api
 
 import (
-	"github.com/ts-dart/seuFeed/api/internal/scraper"
+	"encoding/json"
 	"fmt"
+	"log"
+	"os"
+	"io"
 )
 
 type Post struct {
-	postHrefLink string
-	postImgSrc   string
-	postText string
-	font string
-	fontImgSrc string
-	section string
+	PostHrefLink string `json:"post_href_link"`
+	PostImgSrc string `json:"post_img_src"`
+	PostText string `json:"post_text"`
+	Font string `json:"font"`
+	FontImgSrc string `json:"font_img_src"`
+	Section string `json:"section"`
 }
 
 func respository() ([]Post) {
-	posts := scraper.PostsList
-	fmt.Println(posts)
-	var convertedPosts []Post
+	var posts []Post
+	readJson(&posts)
 
-	for _, p := range posts {
-		convertedPosts = append(convertedPosts, Post{
-			postHrefLink: p.PostHrefLink,
-			postImgSrc:   p.PostImgSrc,
-			postText:     p.PostText,
-			font:         p.Font,
-			fontImgSrc:   p.FontImgSrc,
-			section:      p.Section,
-		})
+	fmt.Println(posts)
+	return posts
+}
+
+func readJson(posts *[]Post) {
+	file, err := os.Open("../scraper/data.json")
+	if err != nil {
+		log.Fatal("Erro ao abrir o arquivo", err)
+	}
+	defer file.Close()
+	
+	jsonData, err := io.ReadAll(file)
+	if err != nil {
+		log.Fatal("Erro ao ler o arquivo", err)
 	}
 
-	return convertedPosts
+	err = json.Unmarshal(jsonData, &posts)
+	if err != nil {
+		log.Fatal("Erro ao ler o arquivo", err)
+	}
 }

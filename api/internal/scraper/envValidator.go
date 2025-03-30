@@ -1,7 +1,7 @@
 package scraper
 
 import (
-	"log"
+	"fmt"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -11,22 +11,22 @@ func envValidator(u string, f string, fi string) (string, string, string) {
 	// Carrega variáveis de ambiente
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Erro ao carregar o .env")
+		panic(fmt.Sprintf("Erro ao carregar o .env", err))
 	}
 
 	url := os.Getenv(u)
 	if url == "" {
-		log.Fatal("URLO_ENV não está definido")
+		panic(fmt.Sprintf("URLO_ENV não está definido", err))
 	}
 
 	font := os.Getenv(f)
 	if font == "" {
-		log.Fatal("URLO_ENV_FONT nao esta definido")
+		panic(fmt.Sprintf("URLO_ENV_FONT nao esta definido", err))
 	}
 
 	fontImg := os.Getenv(fi)
 	if fontImg == "" {
-		log.Fatal("URLO_ENV_FONT nao esta definido")
+		panic(fmt.Sprintf("URLO_ENV_FONT nao esta definido", err))
 	}
 
 	return url, font, fontImg

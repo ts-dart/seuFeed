@@ -1,8 +1,7 @@
 package scraper
 
 import (
-	//"fmt"
-	"log"
+	"fmt"
 
 	"github.com/gocolly/colly"
 )
@@ -27,7 +26,7 @@ func urlt() ([]Post) {
 
 	err := c.Visit(url)
 	if err != nil {
-		log.Fatal(err)
+    panic(fmt.Sprintf("Erro ao visitar a URL: %v", err))
 	}
 
 	return postsList

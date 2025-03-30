@@ -3,26 +3,65 @@ package scraper
 import (
 	"fmt"
 	"time"
+	"encoding/json"
+	"os"
+	"log"
 )
 
 type Post struct {
-	PostHrefLink string
-	PostImgSrc   string
-	PostText string
-	Font string
-	FontImgSrc string
-	Section string
+	PostHrefLink string `json:"post_href_link"`
+	PostImgSrc string `json:"post_img_src"`
+	PostText string `json:"post_text"`
+	Font string `json:"font"`
+	FontImgSrc string `json:"font_img_src"`
+	Section string `json:"section"`
 }
 
-var PostsList []Post
+var PostsList []Post = make([]Post, 0, 100)
 
 func Scraper() {
-	PostsList = make([]Post, 0, 100)
-	PostsList = append(PostsList, urlo()...)
-	PostsList = append(PostsList, urlt()...)
-
 	for {
+		handleScraperErrors(urlo)
+		handleScraperErrors(urlt)
+
+		writeJson(PostsList)
 		fmt.Println(PostsList)
+
 		time.Sleep(3 * time.Minute)
-	} 
+	}
+}
+
+// Função para lidar com erros nos scrapers sem interromper o fluxo
+func handleScraperErrors(scraperFunc func() []Post) {
+	defer func() {
+		if r := recover(); r != nil {
+			log.Printf("Erro no scraper: %v.", r)
+		}
+	}()
+
+	PostsList = append(PostsList, scraperFunc()...)
+}
+
+func writeJson(PostsList []Post) {
+	// Converter a estrutura para JSON formatado
+	jsonData, err := json.MarshalIndent(PostsList, "", "  ")
+	if err != nil {
+		log.Fatal("Erro ao converter para JSON:", err)
+		return
+	}
+
+	// Criar um arquivo para salvar o JSON
+	file, err := os.Create("data.json")
+	if err != nil {
+		log.Fatal("Erro ao criar arquivo:", err)
+		return
+	}
+	defer file.Close()
+
+	// Escrever os dados no arquivo
+	_, err = file.Write(jsonData)
+	if err != nil {
+		log.Fatal("Erro ao escrever no arquivo:", err)
+		return
+	}
 }
