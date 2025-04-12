@@ -7,8 +7,9 @@ import (
 
 func Start() {
 	http.HandleFunc("/", d)
-	http.HandleFunc("/getPostsBySection", getPostsBySectionHandler)
-	http.HandleFunc("/getAllPosts", getAllPostsHandler)
+	http.HandleFunc("/PostsBySection", getPostsBySectionHandler)
+	http.HandleFunc("/AllPosts", getAllPostsHandler)
+	http.HandleFunc("/ClimateData", getClimateDateHandler)
 }
 
 func d(w http.ResponseWriter, r *http.Request) {
@@ -39,6 +40,24 @@ func getPostsBySectionHandler(w http.ResponseWriter, r *http.Request) {
 func getAllPostsHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	response := getAllPosts()
+
+	jsonData, err := json.Marshal(response)
+
+	if err != nil {
+		http.Error(w, "Erro ao gerar JSON", http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Write(jsonData)
+}
+
+func getClimateDateHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	lat := r.URL.Query().Get("latitude")
+	lon := r.URL.Query().Get("longitude")
+	response := getClimateDate(lat, lon)
 
 	jsonData, err := json.Marshal(response)
 

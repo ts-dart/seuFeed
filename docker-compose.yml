@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  scraper:
+    build:
+      context: ./api
+    command: ["/app/scraper"]
+    depends_on: []
+    restart: "no" 
+
+  api:
+    build:
+      context: ./api
+    command: ["/app/api"]
+    depends_on:
+      - scraper
+    ports:
+      - "8080:8080"
+    restart: unless-stopped

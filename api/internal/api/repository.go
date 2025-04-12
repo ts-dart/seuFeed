@@ -15,6 +15,16 @@ type Post struct {
 	Font string `json:"font"`
 	FontImgSrc string `json:"font_img_src"`
 	Section string `json:"section"`
+	//Hora
+}
+
+type ClimateData struct {
+	Current struct {
+		Time           string  `json:"time"`
+		Temperature2m  float64 `json:"temperature_2m"`
+		WindSpeed10m   float64 `json:"wind_speed_10m"`
+		Interval       int     `json:"interval"`
+	} `json:"current"`
 }
 
 func respository() ([]Post) {

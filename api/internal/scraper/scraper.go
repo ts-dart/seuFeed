@@ -15,6 +15,7 @@ type Post struct {
 	Font string `json:"font"`
 	FontImgSrc string `json:"font_img_src"`
 	Section string `json:"section"`
+	//hora
 }
 
 var PostsList []Post = make([]Post, 0, 100)
@@ -35,7 +36,7 @@ func Scraper() {
 func handleScraperErrors(scraperFunc func() []Post) {
 	defer func() {
 		if r := recover(); r != nil {
-			log.Printf("Erro no scraper: %v.", r)
+			log.Printf("Erro no scraper: %v.", r) 
 		}
 	}()
 
