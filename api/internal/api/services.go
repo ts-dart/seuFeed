@@ -27,7 +27,7 @@ func getAllPosts() ([]Post) {
 	return r
 }
 
-func getClimateDate(latStr string, lonStr string) {
+func getClimateDate(latStr string, lonStr string) (CurrentClimateData) {
 	lat, err := strconv.ParseFloat(latStr, 64)
 	if err != nil {
 		panic(fmt.Sprintf("Latitude inválida: %v", err))
@@ -56,14 +56,5 @@ func getClimateDate(latStr string, lonStr string) {
 		panic(fmt.Sprintf("Erro ao decodificar o json para estutura"))
 	}
 
-	r := ClimateData{
-		Current{
-			Time: apiResp.Current.Time, 
-			Temperature2m: apiResp.Current.Temperature2m, 
-			WindSpeed10m: apiResp.Current.WindSpeed10m, 
-			Interval: apiResp.Current.Interval,
-		},
-	}
-
-	//formatedResp := ClimateData{apiResp.Current.Time, apiResp.Current.Temperature2m, apiResp.Current.WindSpeed10m, apiResp.Current.Interval}
+	return apiResp.Current
 }
