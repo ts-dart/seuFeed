@@ -20,7 +20,6 @@ type Post struct {
 }
 
 var PostsList []Post = make([]Post, 0, 100)
-
 func Scraper() {
 	for {
 		if len(PostsList) > 0 {
