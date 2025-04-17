@@ -1,4 +1,4 @@
-export interface PostsList {
+export interface Post {
 	postHrefLink: string, 
 	postImgSrc: string, 
 	postText: string,

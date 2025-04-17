@@ -2,7 +2,6 @@ package scraper
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"math/rand"
 	"os"
@@ -11,15 +10,16 @@ import (
 
 type Post struct {
 	PostHrefLink string `json:"post_href_link"`
-	PostImgSrc string `json:"post_img_src"`
-	PostText string `json:"post_text"`
-	Font string `json:"font"`
-	FontImgSrc string `json:"font_img_src"`
-	Section string `json:"section"`
+	PostImgSrc   string `json:"post_img_src"`
+	PostText     string `json:"post_text"`
+	Font         string `json:"font"`
+	FontImgSrc   string `json:"font_img_src"`
+	Section      string `json:"section"`
 	//hora
 }
 
 var PostsList []Post = make([]Post, 0, 100)
+
 func Scraper() {
 	for {
 		if len(PostsList) > 0 {
@@ -30,14 +30,15 @@ func Scraper() {
 		handleScraperErrors(urlt)
 
 		writeJson(PostsList)
-		fmt.Println(PostsList)
+		log.Println("SCRAPER running")
 
 		time.Sleep(time.Duration(randomNumber()) * time.Minute)
 	}
 }
 
 var rng = rand.New(rand.NewSource(time.Now().UnixNano()))
-func randomNumber() (int) {
+
+func randomNumber() int {
 	return rng.Intn(8) + 3
 }
 
@@ -45,7 +46,7 @@ func randomNumber() (int) {
 func handleScraperErrors(scraperFunc func() []Post) {
 	defer func() {
 		if r := recover(); r != nil {
-			log.Printf("Erro no scraper: %v.", r) 
+			log.Printf("Erro no scraper: %v.", r)
 		}
 	}()
 
