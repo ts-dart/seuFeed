@@ -13,10 +13,10 @@ func urlt() []Post {
 	var postsList []Post
 	c := colly.NewCollector()
 
-	c.OnHTML("div._evt div.bastian-page div._evg div._evt", func(e *colly.HTMLElement) {
+	c.OnHTML("div._evg div._evt div.bastian-feed-item", func(e *colly.HTMLElement) {
 		post := Post{
-			PostHrefLink: e.ChildAttr("div div", "data-mrf-link"),
-			PostImgSrc:   e.ChildAttr("div.feed-media-wrapper picture img", "src"),
+			PostHrefLink: e.ChildAttr("div.feed-post-body div.feed-post-body-title h2 a", "href"),
+			PostImgSrc:   e.ChildAttr("div.feed-post-body div.feed-media-wrapper picture img", "src"),
 			PostText:     e.ChildText("div.feed-post-body div.feed-post-body-title h2 a p"),
 			Font:         font,
 			FontImgSrc:   fontImg,

@@ -10,16 +10,20 @@ export default function MainSectionNews() {
 
   useEffect(() => {
     getPostsBySection("main")
-        .then((data) => setPostsList(data))
+        .then((data) => {
+          console.log(data)
+          setPostsList(data)
+        })
   }, [])
 
   return (
     <section>
       {postsList?.map((post:Post) => (
           <div>
-            <Image src={post.fontImgSrc} width={150} height={150} alt="Imagem de destaque da noticia"/>
-            <h1>{post.postText}</h1>
-            <p>{post.fontImgSrc}</p>
+            <Image src={post.post_img_src} width={150} height={150} alt="Imagem de destaque da noticia"/>
+            <h1>{post.post_text}</h1>
+            <Image src={post.font_img_src} width={30} height={30} alt="Logo do pagina fonte"/>
+            <p>{post.font}</p>
           </div>
       ))}
     </section>

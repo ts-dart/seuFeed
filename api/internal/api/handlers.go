@@ -5,11 +5,28 @@ import (
 	"net/http"
 )
 
+func enableCORS(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Definindo os headers de CORS
+		w.Header().Set("Access-Control-Allow-Origin", "*") // ou especifique o domínio
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+
+		// Para requests OPTIONS (pré-flight), respondemos com status 200
+		if r.Method == "OPTIONS" {
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+
+		next.ServeHTTP(w, r)
+	})
+}
+
 func Start() {
 	http.HandleFunc("/", d)
-	http.HandleFunc("/PostsBySection", getPostsBySectionHandler)
-	http.HandleFunc("/AllPosts", getAllPostsHandler)
-	http.HandleFunc("/ClimateData", getClimateDateHandler)
+	http.Handle("/PostsBySection", enableCORS(http.HandlerFunc(getPostsBySectionHandler)))
+	http.Handle("/AllPosts", enableCORS(http.HandlerFunc(getAllPostsHandler)))
+	http.Handle("/HealthCheck", enableCORS(http.HandlerFunc(getClimateDateHandler)))
 }
 
 func d(w http.ResponseWriter, r *http.Request) {

@@ -1,9 +1,9 @@
 export interface Post {
-	postHrefLink: string, 
-	postImgSrc: string, 
-	postText: string,
+	post_href_link: string, 
+	post_img_src: string, 
+	post_text: string,
 	font: string,
-	fontImgSrc: string, 
+	font_img_src: string, 
 	section: string,
 }
 
