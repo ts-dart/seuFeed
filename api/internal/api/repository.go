@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"io"
 	"log"
+	"math/rand"
 	"os"
+	"time"
 )
 
 type Post struct {
@@ -75,7 +77,19 @@ func respository() []Post {
 		verifiedPosts = append(verifiedPosts, p)
 	}
 
-	return verifiedPosts
+	return shuffleSlice[Post](verifiedPosts)
+}
+
+func shuffleSlice[T Post](s []T) []T {
+	rand.Seed(time.Now().UnixNano())
+	shuffled := make([]T, len(s))
+	copy(shuffled, s)
+
+	rand.Shuffle(len(shuffled), func(i, j int) {
+		shuffled[i], shuffled[j] = shuffled[j], shuffled[i]
+	})
+
+	return shuffled
 }
 
 func readJson(posts *[]Post) {
