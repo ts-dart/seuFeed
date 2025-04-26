@@ -26,7 +26,7 @@ func Start() {
 	http.HandleFunc("/", d)
 	http.Handle("/PostsBySection", enableCORS(http.HandlerFunc(getPostsBySectionHandler)))
 	http.Handle("/AllPosts", enableCORS(http.HandlerFunc(getAllPostsHandler)))
-	http.Handle("/HealthCheck", enableCORS(http.HandlerFunc(getClimateDateHandler)))
+	http.Handle("/ClimateData", enableCORS(http.HandlerFunc(getClimateDateHandler)))
 }
 
 func d(w http.ResponseWriter, r *http.Request) {
