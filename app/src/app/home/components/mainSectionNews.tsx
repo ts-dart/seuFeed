@@ -43,13 +43,13 @@ export default function MainSectionNews() {
   }, [])
 
   return (
-    <section className="w-[55%] ml-0 mt-[50px] px-4 py-4">
+    <section className="w-[55%] ml-0 mt-[60px] px-4 py-4">
       <div className="px-1 py-1 border-b-[1px] border-[#3C3C3C] mb-[10px]">
         <h1 className="text-black text-left text-base">Destaques</h1>
       </div>
       <div>
       {typeof emphasis === 'number' && postsList && postsList[emphasis] && (
-        <div className="relative w-full h-[300px] rounded-[6px] overflow-hidden rounded-[10px] px-4 py-4">
+        <div className="relative w-[100%] h-[300px] rounded-[6px] overflow-hidden rounded-[10px] px-4 py-4">
           {/* Imagem como plano de fundo */}
           <Image
             src={postsList[emphasis].post_img_src}

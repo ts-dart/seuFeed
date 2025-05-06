@@ -5,7 +5,10 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 	"strconv"
+
+	"github.com/joho/godotenv"
 )
 
 func getPostsBySection(ft string) ([]Post) {
@@ -27,7 +30,17 @@ func getAllPosts() ([]Post) {
 	return r
 }
 
-func getClimateDate(latStr string, lonStr string) (CurrentClimateData) {
+func getClimateDate(latStr string, lonStr string) CurrentClimateData {
+	err := godotenv.Load()
+	if err != nil {
+		panic("Erro ao carregar o arquivo .env")
+	}
+
+	baseURL := os.Getenv("OPEN_METEO_URL")
+	if baseURL == "" {
+		panic("OPEN_METEO_URL não definida no .env")
+	}
+
 	lat, err := strconv.ParseFloat(latStr, 64)
 	if err != nil {
 		panic(fmt.Sprintf("Latitude inválida: %v", err))
@@ -38,22 +51,23 @@ func getClimateDate(latStr string, lonStr string) (CurrentClimateData) {
 		panic(fmt.Sprintf("Longitude inválida: %v", err))
 	}
 
-	url := fmt.Sprintf("https://api.open-meteo.com/v1/forecast?latitude=%.2f&longitude=%.2f&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m", lat, lon)
+	url := fmt.Sprintf("%s&latitude=%.2f&longitude=%.2f&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m", baseURL, lat, lon)
+
 	resp, err := http.Get(url)
 	if err != nil {
-		panic(fmt.Sprintf("Erro ao requisitar os dados da api open-meteo"))
+		panic("Erro ao requisitar os dados da API open-meteo")
 	}
 	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		panic(fmt.Sprintf("Erro ao ler os dados da api open-meteo"))
+		panic("Erro ao ler os dados da API open-meteo")
 	}
 
 	var apiResp ClimateData
 	err = json.Unmarshal(body, &apiResp)
 	if err != nil {
-		panic(fmt.Sprintf("Erro ao decodificar o json para estutura"))
+		panic("Erro ao decodificar o JSON para a estrutura")
 	}
 
 	return apiResp.Current
