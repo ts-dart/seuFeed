@@ -8,7 +8,7 @@ export default function HomePage() {
     <>
       <Header/>
         <section className="flex flex-row w-[80%] mx-auto">
-            <MainSectionNews/>1
+            <MainSectionNews/>
             <AsideMainPage/>
         </section>
     </>
