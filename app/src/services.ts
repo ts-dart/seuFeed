@@ -24,8 +24,8 @@ export async function getPostsBySection(ft:string): Promise<Array<Post>> {
   return await response.json();
 }
 
-export async function getClimateDate(): Promise<CurrentClimateData> {
-  const response = await fetch("http://localhost:8080/ClimateData", {
+export async function getClimateDate(latitude: string | undefined, longitude: string | undefined): Promise<CurrentClimateData> {
+  const response = await fetch(`http://localhost:8080/ClimateData?latitude=${latitude}&longitude=${longitude}`, {
     method: "GET",
   })
 

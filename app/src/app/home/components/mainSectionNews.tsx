@@ -29,7 +29,6 @@ export default function MainSectionNews() {
           setPostsList(data)
           setEmphasis(Math.floor(Math.random() * data.length))
           setLoading(false)
-          console.log(emphasis)
         }
       })
       .catch(() => {
