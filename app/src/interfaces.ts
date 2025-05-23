@@ -8,8 +8,8 @@ export interface Post {
 }
 
 export interface CurrentClimateData {
-	time: string,
-	interval: number,
-	temperature2m: number,
-	windSpeed10m: number,
+	time?: string,
+	interval: string,
+	temperature_2m: string,
+	wind_speed_10m: string,
 }

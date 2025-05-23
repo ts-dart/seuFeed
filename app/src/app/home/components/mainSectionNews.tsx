@@ -48,32 +48,34 @@ export default function MainSectionNews() {
       </div>
       <div>
       {typeof emphasis === 'number' && postsList && postsList[emphasis] && (
-        <div className="relative w-[100%] h-[300px] rounded-[6px] overflow-hidden rounded-[10px] px-4 py-4">
-          {/* Imagem como plano de fundo */}
-          <Image
-            src={postsList[emphasis].post_img_src}
-            alt="Imagem de destaque da noticia"
-            fill
-            className="object-cover z-0"
-          />
-        
-          {/* Conteúdo sobreposto */}
-          <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent px-4 py-4 z-10">
-            <h1 className="text-white text-2xl font-bold mb-2">
-              {postsList[emphasis].post_text}
-            </h1>
-            <div className="flex items-center gap-2">
-              <Image
-                src={postsList[emphasis].font_img_src}
-                width={20}
-                height={20}
-                alt="Logo do pagina fonte"
-                className="rounded-[2px]"
-              />
-              <p className="text-white text-sm">{postsList[emphasis].font}</p>
+        <a href={postsList[emphasis].post_href_link} target="_blank" key={postsList[emphasis].post_href_link}>
+          <div className="relative w-[100%] h-[300px] rounded-[6px] overflow-hidden rounded-[10px] px-4 py-4">
+            {/* Imagem como plano de fundo */}
+            <Image
+              src={postsList[emphasis].post_img_src}
+              alt="Imagem de destaque da noticia"
+              fill
+              className="object-cover z-0"
+            />
+          
+            {/* Conteúdo sobreposto */}
+            <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent px-4 py-4 z-10">
+              <h1 className="text-white text-2xl font-bold mb-2">
+                {postsList[emphasis].post_text}
+              </h1>
+              <div className="flex items-center gap-2">
+                <Image
+                  src={postsList[emphasis].font_img_src}
+                  width={20}
+                  height={20}
+                  alt="Logo do pagina fonte"
+                  className="rounded-[2px]"
+                />
+                <p className="text-white text-sm">{postsList[emphasis].font}</p>
+              </div>
             </div>
           </div>
-        </div>
+        </a>
       )}
       </div>
       {!loading 
