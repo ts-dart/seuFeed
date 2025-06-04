@@ -17,7 +17,6 @@ export default function ClimateDate() {
   }
 
   const getTimeIcon = () => {
-    // Consideramos dia das 6h às 18h
     const isDay = Number(hour.split(":")[0]) >= 6 && Number(hour.split(":")[0]) < 18;
   
     return isDay ? (
