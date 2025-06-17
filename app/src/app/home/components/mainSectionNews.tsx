@@ -20,12 +20,12 @@ export default function MainSectionNews() {
     const timeout = setTimeout(() => {
       setError(true)
       setLoading(false)
-    }, 5000) // tempo máximo para esperar os dados
+    }, 5000)
   
     getPostsBySection("main")
       .then((data) => {
         if (data.length > 0) {
-          clearTimeout(timeout) // se os dados chegaram a tempo, cancela o timeout
+          clearTimeout(timeout)
           setPostsList(data)
           setEmphasis(Math.floor(Math.random() * data.length))
           setLoading(false)
@@ -36,8 +36,7 @@ export default function MainSectionNews() {
         setError(true)
         setLoading(false)
       })
-  
-    // cleanup se o componente for desmontado
+
     return () => clearTimeout(timeout)
   }, [])
 
@@ -50,15 +49,12 @@ export default function MainSectionNews() {
       {typeof emphasis === 'number' && postsList && postsList[emphasis] && (
         <a href={postsList[emphasis].post_href_link} target="_blank" key={postsList[emphasis].post_href_link}>
           <div className="relative w-[100%] h-[300px] rounded-[6px] overflow-hidden rounded-[10px] px-4 py-4">
-            {/* Imagem como plano de fundo */}
             <Image
               src={postsList[emphasis].post_img_src}
               alt="Imagem de destaque da noticia"
               fill
               className="object-cover z-0"
             />
-          
-            {/* Conteúdo sobreposto */}
             <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent px-4 py-4 z-10">
               <h1 className="text-white text-2xl font-bold mb-2">
                 {postsList[emphasis].post_text}
@@ -82,7 +78,6 @@ export default function MainSectionNews() {
         ? postsList?.map((post: Post) => (
             <a href={post.post_href_link} target="_blank" key={post.post_href_link}>
               <div className="flex bg-[#F9F9F9] rounded-[2px] px-1 py-1 border-[1px] border-[#F9F9F9] mb-[5px] w-full min-h-[150px]">
-                {/* Imagem de destaque à esquerda */}
                 <div className="w-[20%] px-1 py-1">
                   <Image
                     src={post.post_img_src}
@@ -92,10 +87,7 @@ export default function MainSectionNews() {
                     className="rounded-[10px] object-cover w-full h-full"
                   />
                 </div>
-
-                {/* Conteúdo à direita */}
                 <div className="flex flex-col justify-start px-2 py-1 w-[80%]">
-                  {/* Fonte */}
                   <div className="flex items-center gap-2 mb-2">
                     <Image
                       src={post.font_img_src}
@@ -106,13 +98,9 @@ export default function MainSectionNews() {
                     />
                     <p className="text-xs text-black">{post.font}</p>
                   </div>
-
-                  {/* Título da notícia */}
                   <h1 className="text-left text-base font-bold text-black leading-tight mb-2">
                     {post.post_text}
                   </h1>
-
-                  {/* Tempo */}
                   <h2 className="text-[#808080] text-xs mt-[3px]">00 minutos atrás</h2>
                 </div>
               </div>
