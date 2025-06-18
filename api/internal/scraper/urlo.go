@@ -13,7 +13,7 @@ func urlo() []Post {
 	c := colly.NewCollector()
 
 	// Captura os elementos necessários
-	c.OnHTML(".block--manchetes .has--thumb", func(e *colly.HTMLElement) {
+	c.OnHTML("#blockList_1", func(e *colly.HTMLElement) {
 		post := Post{
 			PostHrefLink: e.ChildAttr("figure a", "href"),
 			PostImgSrc:   e.ChildAttr("figure a img", "src"),
