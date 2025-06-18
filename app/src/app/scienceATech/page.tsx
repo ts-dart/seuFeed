@@ -1,5 +1,7 @@
+import Header from "@/components/header"
+
 export default function ScienceATechPage() {
   return (
-    <h1> sci page</h1>
+    <Header/>
   )
 }

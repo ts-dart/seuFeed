@@ -1,5 +1,7 @@
+import Header from "@/components/header"
+
 export default function SportsPage() {
   return(
-    <h1>sports</h1>
+    <Header/>
   )
 }

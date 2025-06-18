@@ -1,5 +1,10 @@
+import Header from "../../components/header";
+
 export default function HealthPage() {
   return (
-    <h1>health page</h1>
+    <>
+      <Header/>
+      <h1>health page</h1>
+    </>
   )
 }
